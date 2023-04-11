@@ -1,0 +1,125 @@
+#
+# Software Name : 5G-all-in-one-helm
+# SPDX-FileCopyrightText: Copyright (c) 2022
+# SPDX-License-Identifier: Apache-2.0
+#
+# This software is distributed under the Apache License 2.0,
+# the text of which is available at https://github.com/Orange-OpenSource/towards5gs-helm/blob/main/LICENSE
+# or see the "LICENSE" file for more details.
+#
+# Author: Abderaouf KHICHANE, Ilhem FAJJARI, Ayoub BOUSSELMI
+# Software description: An open-source project providing Helm charts to deploy 5G components (Core + RAN) on top of Kubernetes
+#
+# Default values for free5gcControlPlane chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: ""
+fullnameOverride: ""
+
+global:
+  projectName: free5gc
+  amf:
+    n2if:  # NGAP
+      ipAddress: 10.100.50.249
+    service:
+      ngap:
+        enabled: false
+        name: amf-n2
+        port: 38412
+        nodeport: 31412
+        protocol: SCTP
+        type: NodePort
+  n2network:
+    name: n2network
+    masterIf: eth0
+    subnetIP: 10.100.50.248
+    cidr: 29
+    gatewayIP: 10.100.50.254
+    excludeIP: 10.100.50.254
+  n3network:
+    name: n3network
+    masterIf: eth0
+    subnetIP: 10.100.50.232
+    cidr: 29
+    gatewayIP: 10.100.50.238
+    excludeIP: 10.100.50.238
+
+n3iwf:
+  name: n3iwf
+  replicaCount: 1
+  image:
+    name: zanattabruno/free5gc-n3iwf
+    pullPolicy: Always
+  configmap:
+    name: n3iwf-configmap
+  volume:
+    name: n3iwf-volume
+    mount: /free5gc/config/
+  # network paramters
+  n2if:  # NGAP
+    ipAddress: 10.100.50.251
+  n3if:  # GTPU
+    ipAddress: 10.100.50.237
+  ike:  # define an interface for the IKE daemon as mentioned in the free5gc github README.md
+    ipAddress: 172.16.10.5
+    name: ikenetwork
+    masterIf: eth0
+    subnetIP: 172.16.10.0
+    cidr: 24
+    gatewayIP: 172.16.10.1
+
+  podAnnotations: {}
+    # additional annotations
+  imagePullSecrets: []
+  podSecurityContext: {}
+  securityContext:
+    capabilities:
+      add: ["NET_ADMIN"]
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  readinessProbe:
+    initialDelaySeconds: 0
+    periodSeconds: 1
+    timeoutSeconds: 1
+    failureThreshold:  40
+    successThreshold: 1
+  livenessProbe:
+    initialDelaySeconds: 120
+    periodSeconds: 10
+    timeoutSeconds: 10
+    failureThreshold: 3
+    successThreshold: 1
+  tolerations: []
+  affinity: {}
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
+
+  configuration:
+    IPSecInterfaceAddress: 10.0.0.1
+    # the kind of log output
+      # debugLevel: how detailed to output, value: trace, debug, info, warn, error, fatal, panic
+      # ReportCaller: enable the caller report or not, value: true or false
+    logger:
+      N3IWF:
+        debugLevel: trace
+        ReportCaller: false
+      NGAP:
+        debugLevel: trace
+        ReportCaller: false
+      Aper:
+        debugLevel: trace
+        ReportCaller: false
+
+# These parameters apply in case of deployinh N3IWF if a different cluster from the one where AMF is deployed and a Kubernetes service is used for AMF' N2 interface
+multiCluster: false
+cpClusterIP: ""

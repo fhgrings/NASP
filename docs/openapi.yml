@@ -1,0 +1,371 @@
+openapi: 3.0.3
+info:
+  title: Swagger Petstore - OpenAPI 3.0
+  description: |-
+    This is a sample Pet Store Server based on the OpenAPI 3.0 specification.  You can find out more about
+    Swagger at [https://swagger.io](https://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!
+    You can now help us improve the API whether it's by making changes to the definition itself or to the code.
+    That way, with time, we can improve the API in general, and expose some of the new features in OAS3.
+
+    _If you're looking for the Swagger 2.0/OAS 2.0 version of Petstore, then click [here](https://editor.swagger.io/?url=https://petstore.swagger.io/v2/swagger.yaml). Alternatively, you can load via the `Edit > Load Petstore OAS 2.0` menu option!_
+    
+    Some useful links:
+    - [The Pet Store repository](https://github.com/swagger-api/swagger-petstore)
+    - [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: https://petstore3.swagger.io/api/v3
+tags:
+  - name: NSST
+    description: Everything about your Pets
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+  - name: NSSI
+    description: Access to Petstore orders
+    externalDocs:
+      description: Find out more about our store
+      url: http://swagger.io
+  - name: Controller Key
+    description: Access to Petstore orders
+    externalDocs:
+      description: Find out more about our store
+      url: http://swagger.io
+
+paths:
+  /nsst:
+    delete:
+      tags:
+        - NSST
+      summary: Update an existing pet
+      description: Update an existing pet by Id
+      operationId: deleteNsst
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {request_status: "ok", NSST_id: 123}
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        '405':
+          description: Validation exception
+    post:
+      tags:
+        - NSST
+      summary: Update an existing pet
+      description: Update an existing pet by Id
+      operationId: postNsst
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              example:
+                {
+                  
+                }
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {request_status: ok, NSST_id: 1}
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        '405':
+          description: Validation exception
+    get:
+      tags:
+        - NSST
+      summary: Update an existing pet
+      description: Update an existing pet by Id
+      operationId: getNsst
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  services:
+                    - amf
+                    - smf
+                    - upf
+                    - nrf
+                  instances:
+                    - mongo
+                    - amf
+                    - smf
+                    - upf
+                    - nrf
+                  NSST_id: 123
+                
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        '405':
+          description: Validation exception
+
+  /nssi:
+    delete:
+      tags:
+        - NSSI
+      summary: Update an existing pet
+      description: Update an existing pet by Id
+      operationId: deleteNSSI
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NSST'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        '405':
+          description: Validation exception
+    post:
+      tags:
+        - NSSI
+      summary: Create a NSSI
+      description: Create a NSSI
+      operationId: postNSSI
+      requestBody:
+        description: NSSI selection
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                {
+                  s-nssai: {
+                    sd: 123,
+                    sst: 1234
+                  },
+                  NSST_id: 123
+                }
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  {
+                    NSSI_id: 222
+                  }
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        '405':
+          description: Validation exception
+    get:
+      tags:
+        - NSSI
+      summary: Update an existing pet
+      description: Update an existing pet by Id
+      operationId: getNSSI
+      parameters:
+        - in: query
+          name: fields
+          allowReserved: true
+          schema:
+            type: integer
+            example: 222
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  {
+                    status: "creating",
+                    instances: ["AMF", "SMF", "UPF"],
+                    interfaces: {
+                      port: 34080,
+                      ip: "127.0.0.1"
+                    }
+                    
+                  }
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        '405':
+          description: Validation exception
+     
+  /controllerKey:
+    delete:
+      tags:
+        - Controller Key
+      summary: Delete a Kubernetes Acces Key
+      description: Delete a Kubernetes Acces Key
+      operationId: deleteControllerKey
+      parameters:
+        - in: query
+          name: fields
+          allowReserved: true
+          schema:
+            type: integer
+            example: 123
+
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NSST'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        '405':
+          description: Validation exception
+    post:
+      tags:
+        - Controller Key
+      summary: Update a Kubernetes Acces Key
+      description: Update a Kubernetes Acces Key
+      operationId: postControllerKey
+      requestBody:
+        description: Update a Kubernetes Acces Key
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/kube_config'          
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/kube_config'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        '405':
+          description: Validation exception
+    get:
+      tags:
+        - Controller Key
+      summary: Get a Kubernetes Acces Key
+      description: Get a Kubernetes Acces Key
+      operationId: getControllerKey
+      parameters:
+        - in: query
+          name: fields
+          allowReserved: true
+          schema:
+            type: integer
+            example: 123
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/kube_config'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        '405':
+          description: Validation exception
+ 
+components:
+  schemas:
+    kube_config:
+      type: object
+      properties:
+        apiVersion:
+          type: string
+          example: v1
+        clusters:
+          type: object
+          properties:
+            cluster:
+              type: object
+              properties:
+                certificate-authority-data:
+                  type: string
+                  example: LS0tLS1CRUdJTiBDRVJUSUZJQ
+                server:
+                  type: string
+                  example: https://127.0.0.1:36035
+            name:
+              type: string
+              example: kind-kind
+        contexts:
+          type: object
+          properties:
+            context:
+              type: object
+              properties:
+                cluster:
+                  type: string
+                  example: kind-kind
+                user:
+                  type: string
+                  example: kind-kind
+            name:
+              type: string
+              example: kind-kind
+        current-context: 
+          type: string
+          example: kind-kind
+        kind:
+          type: string
+          example: Config
+        users:
+          type: object
+          properties:
+            user:
+              type: object
+              properties:
+                client-certificate-data:
+                  type: string
+                  example: LS0tLS1CRUdJTiBDRVJUSUZJQ
+                client-key-data:
+                  type: string
+                  example: LS0tLS1CRUdJTi
+            name:
+              type: string
+              example: kind-kind
+    NSST:
+      type: object
+      example:
+        {
+          services: [amf, smf, upf, nrf],
+          instances: [mongo, amf, smf, upf, nrf],
+          NSST_id: 123,
+        }

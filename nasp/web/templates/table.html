@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <table id="data" class="table table-striped">
+        <thead>
+        <tr>
+            <th>Check</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Sharing</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for case in use_cases %}
+            <tr>
+            <td><input type="checkbox" id="scales" name="scales"></td>
+            <td>{{ case.name }}</td>
+            <td>{{ case.description }}</td>
+            <td>{{ case.status }}</td>
+            <td>{{ case.is_shared }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.css">
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <title>{{title}}</title>
+
+</head>
+<body>
+    <div class="main">
+        <div class="header">
+            <div class="title">Services / Templates</div>
+        </div>
+        <div class="body">
+            <div class="body-title">
+                <div class="body-title-opt1">NETWORK SLICES</div>
+                <div class="body-title-opt2">NETWORK SLICES SUBNETS</div>
+            </div>
+            <div class="body-main">
+                <div class="body-main-title">Network Slice Use Cases</div>
+                <div class="body-main-table">
+                    <table id="data" class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Sharing</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for case in use_cases %}
+                            <tr>
+                              <td>{{ case.name }}</td>
+                              <td>{{ case.description }}</td>
+                              <td>{{ case.status }}</td>
+                              <td>{{ case.is_shared }}</td>
+                            </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
