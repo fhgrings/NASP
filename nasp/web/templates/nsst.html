@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% set active = "Templates" %}
+{% block content %}
+<div class="body">
+    <div class="body-title">
+        <div class="body-title-opt1 " onclick="window.location='/';">NETWORK SLICES TEMPLATES</div>
+        <div class="body-title-opt2 active" onclick="window.location='/nsst';">NETWORK SLICES SUBNETS TEMPLATES</div>
+    </div>
+    <div class="body-main">
+        <div class="body-main-title">Network Slice Use Cases</div>
+        <div class="body-main-table">
+            <table id="data" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Domain</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Sharing</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for case in use_cases %}
+                    <tr>
+                        <td>{{ case.domain }}</td>
+                        <td>{{ case.name }}</td>
+                        <td>{{ case.description }}</td>
+                        <td>{{ case.status }}</td>
+                        <td>{{ case.is_shared }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">Add Sub Slice Template</button>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Network Sub Slice Template</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="inputEmail3" placeholder="Name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label">Description</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="inputEmail3" placeholder="Description">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label">Domain</label>
+                            <div class="col-sm-10">
+                                <select class="form-control">
+                                    <option>RAN</option>
+                                    <option>Core</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="form-group">
+                                <label for="exampleFormControlFile1">File</label>
+                                <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Create Template</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

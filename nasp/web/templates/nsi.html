@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% set active = "Instances" %}
+{% block content %}
+<div class="body">
+    <div class="body-title">
+        <div class="body-title-opt1 active" onclick="window.location='/';">NETWORK SLICES TEMPLATES</div>
+        <div class="body-title-opt2" onclick="window.location='/nsst';">NETWORK SLICES SUBNETS TEMPLATES</div>
+    </div>
+    <div class="body-main">
+        <button type="button" class="btn btn-primary btn-lg" onclick="allocNSSI()">Deploy Slice</button>
+
+    </div>
+</div>
+{% endblock %}

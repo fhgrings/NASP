@@ -153,31 +153,31 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
-            <a href="#" class="nav-link active" aria-current="page">
+            <a href="/" class="nav-link {{ 'active' if active == 'Templates' else 'text-white' }}" aria-current="page">
             <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"/></svg>
-            Home
+            Templates
             </a>
         </li>
         <li>
-            <a href="#" class="nav-link text-white">
+            <a href="/nsi" class="nav-link {{ 'active' if active == 'Instances' else 'text-white' }}">
+            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+            Instances
+            </a>
+        </li>
+        <li>
+            <a href="/dashboard-metrics" class="nav-link {{ 'active' if active == 'Dashboard' else 'text-white' }}">
             <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
             Dashboard
             </a>
         </li>
         <li>
-            <a href="#" class="nav-link text-white">
-            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
-            Orders
-            </a>
-        </li>
-        <li>
-            <a href="#" class="nav-link text-white">
+            <a href="#" class="nav-link {{ 'active' if active == 'Products' else 'text-white' }}">
             <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
             Products
             </a>
         </li>
         <li>
-            <a href="#" class="nav-link text-white">
+            <a href="#" class="nav-link {{ 'active' if active == 'Customers' else 'text-white' }}">
             <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
             Customers
             </a>
@@ -202,22 +202,9 @@
         <div class="header">
             <div class="title">Services / Templates</div>
         </div>
-        <div class="body">
-            <div class="body-title">
-                <div class="body-title-opt1">NETWORK SLICES</div>
-                <div class="body-title-opt2">NETWORK SLICES SUBNETS</div>
-            </div>
-            <div class="body-main">
-                <div class="body-main-title">Network Slice Use Cases</div>
-                <div class="body-main-table">
-                  {% block content %}{% endblock %}
-                  <button type="button" class="btn btn-primary btn-lg" onclick="allocNSSI()">Add Slice</button>
-                </div>
-            </div>
-   
-        </div>
+        {% block content %}{% endblock %}
     </div>
-
+    
     </main>    
   </body>
 </html>

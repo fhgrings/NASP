@@ -1,18 +1,15 @@
 function allocNSSI() {
     alert("Creating a New Slice...")
     var settings = {
-        "url": "http://localhost:5000//allocNssmfCore",
+        "url": "http://localhost:5000/nasp/allocNsi",
         "method": "PUT",
         "timeout": 0,
         "headers": {
           "Content-Type": "application/json"
         },
         "data": JSON.stringify({
-          "NSSAI": {
-            "sst": "1",
-            "sd": "24401"
-          }
-        }),
+          "NsiTemplateId": "1"
+      }),
       };
       
       $.ajax(settings).done(function (response) {
@@ -21,3 +18,7 @@ function allocNSSI() {
       });
     return ""
 }
+$('#myModal').on('shown.bs.modal', function () {
+  alert("Testing")
+  $('#myInput').trigger('focus')
+})

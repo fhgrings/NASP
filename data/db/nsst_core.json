@@ -1,0 +1,1 @@
+[{"domain": "Core", "name": "Full Core", "description": "Complete 5G core environment", "id": "1", "status": "Ready", "is_shared": false, "path": "../helm_charts/core/free5gc"}]

@@ -1,0 +1,1 @@
+[{"domain": "RAN", "name": "Ran Tester", "description": "Virtual RAN Tester", "id": "1", "status": "Ready", "is_shared": false, "path": "../helm_charts/ran/rantester'"}]

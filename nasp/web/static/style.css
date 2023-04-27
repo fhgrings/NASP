@@ -32,7 +32,7 @@ body {
     margin-right: 25px;
     margin-bottom: 15px;
 }
-.body-title-opt1 {
+.active {
     color: rgb(63, 90, 99);
     font-weight: bold;
     border-bottom: 2px solid rgb(63, 90, 99);

@@ -1,0 +1,20 @@
+{
+    "nst_list": [
+        {
+            "name": "mIoT",
+            "description": "Massive IoT",
+            "status": "Ready",
+            "is_shared": false,
+            "nsst_ran": 1,
+            "nsst_core": 1
+        },
+        {
+            "name": "urllc",
+            "description": "Ultra Realiability Low Latency",
+            "status": "Ready",
+            "is_shared": false,
+            "nsst_ran": 1,
+            "nsst_core": 1
+        }
+    ]
+}
