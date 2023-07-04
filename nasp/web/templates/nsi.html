@@ -3,12 +3,37 @@
 {% block content %}
 <div class="body">
     <div class="body-title">
-        <div class="body-title-opt1 active" onclick="window.location='/';">NETWORK SLICES TEMPLATES</div>
-        <div class="body-title-opt2" onclick="window.location='/nsst';">NETWORK SLICES SUBNETS TEMPLATES</div>
+        <div class="body-title-opt1 active" onclick="window.location='/';">NETWORK SLICES INSTANCES</div>
+        <div class="body-title-opt1 " onclick="window.location='/';">NETWORK SUBSLICES INSTANCES</div>
+
     </div>
     <div class="body-main">
-        <button type="button" class="btn btn-primary btn-lg" onclick="allocNSSI()">Deploy Slice</button>
-
+        <div class="body-main-title">Network Slice Instances</div>
+        <div class="body-main-table">
+            <table id="data" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>S-NSSAI</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <!-- <th>Sharing</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for case in nsi_list %}
+                    <tr>
+                        <!-- <td> <a href="/dashboard-metrics?s_nssai={{ case.S_NSSAI }}">{{ case.S_NSSAI }}</a></td> -->
+                        <td> <a href="/dashboard-metrics?s_nssai=1274401">{{ case.S_NSSAI }}</a></td>
+                        <td>{{ case.name }}</td>
+                        <td>{{ case.description }}</td>
+                        <td>{{ case.status}}</td>
+                        <!-- <td>{{ case.is_shared }}</td> -->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 {% endblock %}

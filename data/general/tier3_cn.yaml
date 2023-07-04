@@ -1,0 +1,31 @@
+configuration:
+  amfName: amf
+  ngapIpList:
+    - 127.0.0.18
+  sbi:
+    scheme: http
+    registerEPv4: 127.0.0.18
+    bindingIPv4: 127.0.0.18
+    n1:
+      port: 38412
+      targetport: 31412
+      protocol: SCTP
+    n2:
+      port: 8805
+      targetport: 8805
+      protocol: UDP
+  supportDnnList:
+    - internet
+  nrfUri: http://127.0.0.18:8080
+  security:
+    integrityOrder:
+      - NIA2
+    cipheringOrder:
+      - NEA0
+  networkName:
+    full: free5gc
+    short: free
+  locality: area1
+
+  helmCharts:
+    - sba_core.yml

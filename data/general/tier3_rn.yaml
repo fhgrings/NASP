@@ -1,0 +1,37 @@
+configuration:
+  n3iwfName: N3IWF
+  ngapIpList:
+    - 127.0.0.18
+  sbi:
+    scheme: http
+    registerEPv4: 127.0.0.18
+    bindingIPv4: 127.0.0.18
+    n3:
+      port: 8805
+      targetport: 8805
+      protocol: UDP
+    nwu:
+      port: 500
+      targetport: 500
+      nodePort: 31500
+      protocol: UDP
+    nastcp:
+      port: 32000
+      targetport: 32000
+      nodePort: 32000
+      protocol: TCP
+  supportDnnList:
+    - internet
+  nrfUri: http://127.0.0.18:8080
+  security:
+    integrityOrder:
+      - NIA2
+    cipheringOrder:
+      - NEA0
+  networkName:
+    full: free5gc
+    short: free
+  locality: area1
+
+  helmCharts:
+    - n3iwf.yml

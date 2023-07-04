@@ -12,10 +12,10 @@ def createApp():
     return app
 
 logging.basicConfig(
-    format='%(asctime)s.%(msecs)03d %(levelname)s - %(module)s.%(funcName)s(): %(message)s',
+    format='%(asctime)s.%(msecs)03d %(levelname)s - %(module)s.%(funcName)s():%(lineno)d - %(message)s',
     datefmt='%Y-%m-%d %H:%M:%S',
     level=logging.INFO,
     stream=sys.stdout
 )
 app = createApp()
-app.run(use_reloader=True)
+app.run(use_reloader=True,debug=True)

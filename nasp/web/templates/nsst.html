@@ -7,7 +7,7 @@
         <div class="body-title-opt2 active" onclick="window.location='/nsst';">NETWORK SLICES SUBNETS TEMPLATES</div>
     </div>
     <div class="body-main">
-        <div class="body-main-title">Network Slice Use Cases</div>
+        <div class="body-main-title">Network Sub Slice</div>
         <div class="body-main-table">
             <table id="data" class="table table-striped">
                 <thead>
@@ -38,7 +38,7 @@
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Add Network Sub Slice Template</h5>
@@ -47,39 +47,70 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="subslice-template-form">
                         <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
+                            <label for="inputEmail3" class="col-sm-2 p-3 col-form-label">Domain</label>
                             <div class="col-sm-10">
-                                <input type="email" class="form-control" id="inputEmail3" placeholder="Name">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-2 col-form-label">Description</label>
-                            <div class="col-sm-10">
-                                <input type="email" class="form-control" id="inputEmail3" placeholder="Description">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-2 col-form-label">Domain</label>
-                            <div class="col-sm-10">
-                                <select class="form-control">
+                                <select class="form-control" id="selectorDomain" name="domain">
                                     <option>RAN</option>
+                                    <option>TN</option>
                                     <option>Core</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2  p-3  col-form-label">Input interface</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" id="selectorInputInterface" name="inputInterface">
+                                    <option>RU</option>
+                                    <option>DU</option>
+                                    <option>CU</option>
+                                    <option>N3IWF</option>
+                                    <option>Fronthaul</option>
+                                    <option>Midhaul</option>
+                                    <option>Backhaul</option>
+                                    <option>AMF</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2  p-3 col-form-label">Ouput interface</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" id="selectorOutInterface" name="outputInterface">
+                                    <option>RU</option>
+                                    <option>DU</option>
+                                    <option>CU</option>
+                                    <option>N3IWF</option>
+                                    <option>Fronthaul</option>
+                                    <option>Midhaul</option>
+                                    <option>Backhaul</option>
+                                    <option>Empty</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2  p-3 col-form-label">Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputName" placeholder="Name" name="name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2  p-3 col-form-label">Description</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputDescription" placeholder="Description" name="description">
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <div class="form-group">
-                                <label for="exampleFormControlFile1">File</label>
-                                <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                                <label for="exampleFormControlFile1" class="p-3">File</label>
+                                <input type="file" class="form-control-file" id="inputFile" name="file">
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Create Template</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="createNSST($('#subslice-template-form')[0])">Create Template</button>
                 </div>
             </div>
         </div>

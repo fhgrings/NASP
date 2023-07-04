@@ -17,7 +17,9 @@ def nasp_ui(app):
     @app.route('/')
     def index():
         response = requests.get("http://localhost:5000/nasp/nst", timeout=100)
-        return render_template("nst.html", use_cases = response.json())
+        nsst_ran_list = requests.get("http://localhost:5000/nssmfRAN/nsst", timeout=100)
+        nsst_core_list = requests.get("http://localhost:5000/nssmfCore/nsst", timeout=100)
+        return render_template("nst.html",use_cases = response.json(), nsst_ran_list = nsst_ran_list.json(), nsst_core_list = nsst_core_list.json())
 
     @app.route('/modal')
     def modal():
@@ -36,6 +38,9 @@ def nasp_ui(app):
     @app.route('/dashboard-metrics')
     def metrics():
         return render_template("dashboard-metrics.html", nssai = 1)
+    @app.route('/dashboard-logs')
+    def logs():
+        return render_template("dashboard-logs.html", nssai = 1)
     @app.route('/dashboard-tracing')
     def tracing():
         return render_template("dashboard-tracing.html", nssai = 1)
@@ -43,7 +48,24 @@ def nasp_ui(app):
 
     @app.route('/nsi')
     def nsi():
-        return render_template("nsi.html", nssai = 1)
+        response = requests.get("http://localhost:5000/nasp/nsi", timeout=100)
+        print(response.json())
+        
+        nsi_list = [{
+            "s_nssai":"1274408",
+            "name": "Demo 5G Network Slice",
+            "description": "",
+            "status": "provisioned",
+            "is_shared": True
+        },
+        {
+            "s_nssai":"1274401",
+            "name": "Non3GPP Slice",
+            "description": "",
+            "status": "provisioning",
+            "is_shared": True
+        }]
+        return render_template("nsi.html", nsi_list = response.json())
 
     @app.route('/table')
     def table():
@@ -99,6 +121,13 @@ def nsmf(app):
         except Exception as exception:
             return str(exception), 500
 
+    @app.route(f"{prefix}/nst/", methods=['PUT'])
+    def add_nst():
+        try:
+            Nsmf = NsmfService()
+            return Nsmf.add_nst(request)
+        except Exception as exception:
+            return str(exception), 500
 
     @app.route(f"{prefix}/allocNsi/", methods=['PUT'])
     def alloc_nsi():
@@ -107,6 +136,15 @@ def nsmf(app):
             return Nsmf.allocNsi(request)
         except Exception as exception:
             return str(exception), 500
+
+    @app.route(f"{prefix}/nsi/", methods=['GET'])
+    def get_nsi():
+        try:
+            Nsmf = NsmfService()
+            return Nsmf.getAllNsi(request)
+        except Exception as exception:
+            return str(exception), 500
+
 
 def nssmf_core(app):
     """Nssmf Core Routes"""
@@ -142,7 +180,6 @@ def nssmf_core(app):
             return NssmfCore.add_nsst(request)
         except Exception as exception:
             return str(exception), 500
-
 
 def nssmf_ran(app):
     """Nssmf RAN Routes"""

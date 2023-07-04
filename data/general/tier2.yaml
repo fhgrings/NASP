@@ -1,0 +1,26 @@
+configuration:
+  availability: 99.999
+  dnn: "internet"
+  pduSessions: 100000
+  globalRanId:
+    plmnId:
+      mcc: 208
+      mnc: 93
+    supportedTaList:
+      - tac: 000001
+        boradcastPlmnList:
+          - plmnId:
+            mcc: 208
+            mnc: 93
+          taiSliceSupportList:
+            - sst: 1
+              sd: 010203
+            - sst: 1
+              sd: 000001
+      opc: ""
+      key: ""
+      sequenceNumber: ""
+    nssiList:
+      - nssi_cn
+      - nssi_tn
+      - nssi_rn

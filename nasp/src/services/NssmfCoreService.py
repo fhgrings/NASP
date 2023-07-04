@@ -1,5 +1,6 @@
 import os
 import json
+import logging
 
 class NssmfCoreService():
     """Nssmf Core Class"""
@@ -7,18 +8,26 @@ class NssmfCoreService():
         """"Alloc NSSI Core"""
         try:
             NSSAI = request.json['S-NSSAI']
+            name = request.json['name']
+            path = ""
+            data = open("../data/db/nsst_core.json", encoding="utf-8")
+            for i in json.load(data):
+                if i.get("name") == name:
+                    path = i.get("path")
+
             commands = [
-                "DIR='../helm_charts/core/free5gc'",
+                f"DIR='{path}'",
                 f"cp -r $DIR {NSSAI['sd']}-core",
                 f'grep -rl "sst: 1" {NSSAI["sd"]}-core | xargs sed -i "s/sst: 1/sst: {NSSAI["sst"]}/g"',
                 f'grep -rl "sd: 112233" {NSSAI["sd"]}-core | xargs sed -i "s/sd: 112233/sd: {NSSAI["sd"]}/g"',
-                f"helm install {NSSAI['sd']}-core {NSSAI['sd']}-core -n free5gc"
+                f"helm install {NSSAI['sd']}-core {NSSAI['sd']}-core -n 1274401-demo"
                 ]
             out = os.popen(";".join(commands))
             # print(";".join(commands))
             return "OK"
-        except Exception:
-            return "Bad Request", 400
+        except Exception as exception:
+            logging.error(str(exception))
+            return f"Bad Request - {exception}", 400
 
     def get_all_nssi(self, request):
         """Get All NSSI CORE"""
@@ -35,30 +44,34 @@ class NssmfCoreService():
         """Get All NSSTs Core"""
         try:
             data = open("../data/db/nsst_core.json", encoding="utf-8")
-            return json.load(data)
-        except Exception:
-            return "Bad Request", 400
+            try:
+                return json.load(data)
+            except Exception as exception:
+                print(str(exception))
+                return []
+        except Exception as exception:
+            return f"Bad Request - {exception}", 400
     
     def add_nsst(self, request):
         """Get All NSSTs Core"""
         try:
             data = open("../data/db/nsst_core.json", encoding="utf-8")
-            nsst_list = json.load(data)
-            data.close()
+            try:
+                nsst_list = json.load(data)
+            except Exception as exception:
+                print(str(exception))
+                nsst_list = []
             nsst_list.append({
-                "domain": "Core",
-                "name": "Full Core",
-                "description": "Complete 5G core environment",
+                "domain": request.json.get("domain"),
+                "name": request.json.get("name"),
+                "description": request.json.get("description"),
                 "id": "1",
                 "status": "Ready",
-                "is_shared": False,
+                "is_shared": True,
                 "path": "../helm_charts/core/free5gc"
             })
-            f = open("../data/db/nsst_core.json", "w", encoding="utf-8")
-            print(type(nsst_list[0]))
-            f.write(json.dumps(nsst_list))
-            f.close()
-            return json.load(data)
+            open("../data/db/nsst_core.json", "w", encoding="utf-8").write(json.dumps(nsst_list))
+            return data
         except Exception as exception:
             return f"Bad Request - {exception}", 400
 
