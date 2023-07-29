@@ -3,11 +3,11 @@
 {% block content %}
 <div class="body">
     <div class="body-title">
-        <div class="body-title-opt1 active" onclick="window.location='/';">NETWORK SLICES TEMPLATES</div>
-        <div class="body-title-opt2" onclick="window.location='/nsst';">NETWORK SLICES SUBNETS TEMPLATES</div>
+        <div class="body-title-opt1 active" onclick="window.location='/';">E2E NETWORK SLICES</div>
+        <div class="body-title-opt2" onclick="window.location='/nsst';">NETWORK SUBNETS SLICES</div>
     </div>
     <div class="body-main">
-        <div class="body-main-title">Network Slice Use Cases</div>
+        <div class="body-main-title">E2E Network Slice</div>
         <div class="body-main-table">
             <table id="data" class="table table-striped">
                 <thead>
@@ -17,7 +17,6 @@
                         <th>Description</th>
                         <th>Status</th>
                         <th>Sharing</th>
-                        <th>Deploy</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,7 +28,6 @@
                         <td>{{ case.description }}</td>
                         <td>{{ case.status }}</td>
                         <td >{{ case.is_shared }}</td>
-                        <td><button type="button" class="btn btn-primary btn-lg" onclick="allocNSSI( {{ case.id }} )">Deploy</button></td>
                     </tr>
                     {% endfor %}
                 </tbody>

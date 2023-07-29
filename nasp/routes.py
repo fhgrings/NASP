@@ -19,7 +19,15 @@ def nasp_ui(app):
         response = requests.get("http://localhost:5000/nasp/nst", timeout=100)
         nsst_ran_list = requests.get("http://localhost:5000/nssmfRAN/nsst", timeout=100)
         nsst_core_list = requests.get("http://localhost:5000/nssmfCore/nsst", timeout=100)
-        return render_template("nst.html",use_cases = response.json(), nsst_ran_list = nsst_ran_list.json(), nsst_core_list = nsst_core_list.json())
+        return render_template("nst.html",use_cases = response.json(), nsst_ran_list = nsst_ran_list.json(), nsst_core_list = nsst_core_list.json(),role=request.args.get('role'))
+
+    @app.route('/catalog')
+    def catalog():
+        response = requests.get("http://localhost:5000/nasp/nst", timeout=100)
+        nsst_ran_list = requests.get("http://localhost:5000/nssmfRAN/nsst", timeout=100)
+        nsst_core_list = requests.get("http://localhost:5000/nssmfCore/nsst", timeout=100)
+        return render_template("catalog.html",use_cases = response.json(), nsst_ran_list = nsst_ran_list.json(), nsst_core_list = nsst_core_list.json(), role=request.args.get('role'))
+
 
     @app.route('/modal')
     def modal():
@@ -33,17 +41,17 @@ def nasp_ui(app):
         data += response.json()
         response = requests.get("http://localhost:5000/nssmfCore/nsst", timeout=100)
         data += response.json()
-        return render_template("nsst.html", use_cases = data)
+        return render_template("nsst.html", use_cases = data, role=request.args.get('role'))
 
     @app.route('/dashboard-metrics')
     def metrics():
-        return render_template("dashboard-metrics.html", nssai = 1)
+        return render_template("dashboard-metrics.html", nssai = 1, role=request.args.get('role'))
     @app.route('/dashboard-logs')
     def logs():
-        return render_template("dashboard-logs.html", nssai = 1)
+        return render_template("dashboard-logs.html", nssai = 1, role=request.args.get('role'))
     @app.route('/dashboard-tracing')
     def tracing():
-        return render_template("dashboard-tracing.html", nssai = 1)
+        return render_template("dashboard-tracing.html", nssai = 1, role=request.args.get('role'))
 
 
     @app.route('/nsi')
@@ -65,7 +73,7 @@ def nasp_ui(app):
             "status": "provisioning",
             "is_shared": True
         }]
-        return render_template("nsi.html", nsi_list = response.json())
+        return render_template("nsi.html", nsi_list = response.json(), role=request.args.get('role'))
 
     @app.route('/table')
     def table():
@@ -81,7 +89,7 @@ def nasp_ui(app):
             "status": "Ready",
             "is_shared": False
         }]
-        return render_template("table.html", use_cases = use_cases)
+        return render_template("table.html", use_cases = use_cases, role=request.args.get('role'))
 
 
     @app.route('/status')

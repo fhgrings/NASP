@@ -1,1 +1,1 @@
-[{"S_NSSAI": "1274402", "SST": "1", "SD": "274402", "name": "Demo 5G Network Slice", "description": "", "status": 2, "NST": "1", "ran_nssi": "274402-ran-tester", "core_nssi": "274402-5g-core"}]
+[{"S_NSSAI": "1274402", "SST": "1", "SD": "274402", "name": "Demo 5G Network Slice", "description": "", "status": 2, "NST": "1", "ran_nssi": "274402-ran-tester", "core_nssi": "274402-5g-core"}, {"S_NSSAI": "1274403", "SST": "1", "SD": "274403", "name": "Demo 5G Network Slice", "description": "", "status": 2, "NST": "1", "ran_nssi": "274403-ran-tester", "core_nssi": "274403-5g-core"}]
