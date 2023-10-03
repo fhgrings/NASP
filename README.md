@@ -1,4 +1,4 @@
-# Proto6G-Install
+# Network Slice as a Service Platform (NASP)
 
 This reposittory describes steps for installing the elements that make up NASP (Network Slice as a Service Platform). The instalation process involves at least 3 different machines as a Kubernetes Cluster.
 
