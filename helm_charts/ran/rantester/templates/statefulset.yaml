@@ -46,10 +46,10 @@ spec:
           securityContext:
             capabilities:
               add: ["NET_ADMIN"]
-          #command: ["sleep"]
-          #args: ["1000000"]
-          command: ["./app"]
-          args: ["ue"]
+          command: ["sleep"]
+          args: ["1000000"]
+          # command: ["./app"]
+          # args: ["ue"]
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
