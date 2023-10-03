@@ -19,7 +19,7 @@ The steps described in this repository were performed based on a system architec
 
 
 
-## Proto6G components installation
+## Observability on K8s components installation
 
 The installation steps for each of the 3 components are described below. 
 **Attention: All installation steps described below must be performed with root privileges (SUDO SU).**
