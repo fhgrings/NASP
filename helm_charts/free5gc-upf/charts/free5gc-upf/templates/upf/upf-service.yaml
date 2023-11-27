@@ -1,0 +1,54 @@
+#
+# Software Name : 5G-all-in-one-helm
+# SPDX-FileCopyrightText: Copyright (c) 2022
+# SPDX-License-Identifier: Apache-2.0
+#
+# This software is distributed under the Apache License 2.0,
+# the text of which is available at https://github.com/Orange-OpenSource/towards5gs-helm/blob/main/LICENSE
+# or see the "LICENSE" file for more details.
+#
+# Author: Abderaouf KHICHANE, Ilhem FAJJARI, Ayoub BOUSSELMI
+# Software description: An open-source project providing Helm charts to deploy 5G components (Core + RAN) on top of Kubernetes
+#
+{{- with .Values.upf }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $.Values.global.upf.service.n4.name }}
+  labels:
+    project: free5gc-project
+    nf: {{ .name }}
+spec:
+  type: {{ $.Values.global.upf.service.n4.type }}
+  ports:
+    - name: n4
+      port: {{ $.Values.global.upf.service.n4.port }}
+      targetPort: {{ $.Values.global.upf.service.n4.targetport }}
+      protocol: {{ $.Values.global.upf.service.n4.protocol }}  
+  clusterIP: None  
+  selector:
+    project: free5gc-project
+    nf: {{ .name }}
+
+
+#---
+##TODO  Verify
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: {{ $.Values.global.upf.service.n3.name }}
+#  labels:
+#    project: free5gc-project
+#    nf: {{ .name }}
+#spec:
+#  type: {{ $.Values.global.upf.service.n3.type }}
+#  ports:
+#    - name: n3
+#      port: {{ $.Values.global.upf.service.n3.port }}
+#      protocol: {{ $.Values.global.upf.service.n3.protocol }}
+#  selector:
+#    project: free5gc-project
+#    nf: {{ .name }}
+#{{- end }}

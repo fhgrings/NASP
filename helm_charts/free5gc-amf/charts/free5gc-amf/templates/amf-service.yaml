@@ -1,0 +1,72 @@
+#
+# Software Name : 5G-all-in-one-helm
+# SPDX-FileCopyrightText: Copyright (c) 2022
+# SPDX-License-Identifier: Apache-2.0
+#
+# This software is distributed under the Apache License 2.0,
+# the text of which is available at https://github.com/Orange-OpenSource/towards5gs-helm/blob/main/LICENSE
+# or see the "LICENSE" file for more details.
+#
+# Author: Abderaouf KHICHANE, Ilhem FAJJARI, Ayoub BOUSSELMI
+# Software description: An open-source project providing Helm charts to deploy 5G components (Core + RAN) on top of Kubernetes
+#
+{{- with .Values.amf }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .service.name }}
+  labels:
+    {{- include "free5gc-amf.labels" $ | nindent 4 }}
+    project: free5gc-project
+    nf: {{ .name }}
+spec:
+  type: {{ .service.type }}
+  ports:
+    - port: {{ .service.port }}
+      targetPort: {{ .service.port }}
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "free5gc-amf.selectorLabels" $ | nindent 4 }}
+    project: free5gc-project
+    nf: {{ .name }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $.Values.global.amf.service.n2.name }}
+  labels:
+    project: free5gc-project
+    nf: {{ .name }}
+spec:
+  type: {{ $.Values.global.amf.service.n2.type }}
+  ports:
+    - name: n2
+      port: {{ $.Values.global.amf.service.n2.port }}
+      targetPort: {{ $.Values.global.amf.service.n2.targetport }}
+      protocol: {{ $.Values.global.amf.service.n2.protocol }}  
+  clusterIP: None  
+  selector:
+    project: free5gc-project
+    nf: {{ .name }}
+---
+# #Todo o bloco abaixo foi adicionado visando expor porta SCTP para fora do Cluster
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: amf-sctp-service 
+#   labels:
+#     project: free5gc-project
+#     nf: {{ .name }}
+# spec:
+#   type: NodePort
+#   ports:
+#     - name: sctp
+#       port: 38412
+#       nodePort: 32412
+#       protocol: SCTP  
+#   selector:
+#     project: free5gc-project
+#     nf: {{ .name }}
+{{- end }}

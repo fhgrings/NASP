@@ -1,1 +1,29 @@
-[{"domain": "RAN", "name": "RU+DU", "description": "Virtual RU+DU ", "id": "1", "status": "Ready", "is_shared": true, "path": "../helm_charts/core/free5gc"}, {"domain": "RAN", "name": "Virtual  RAN", "description": "Virtual  Complete RAN RU+DU+CU", "id": "2", "status": "Ready", "is_shared": true, "path": "../helm_charts/core/free5gc"}, {"domain": "RAN", "name": "RAN-Tester", "description": "", "id": "4", "status": "Ready", "is_shared": true, "path": "../helm_charts/ran/rantester"}, {"domain": "RAN", "name": "N3IWF", "description": "", "id": "1", "status": "Ready", "is_shared": true, "path": "../helm_charts/core/free5gc"}, {"domain": "RAN", "name": "N3IWF Test", "description": "Description", "id": "1", "status": "Ready", "is_shared": true, "path": "../helm_charts/core/free5gc"}]
+[
+    {
+        "domain": "RAN",
+        "name": "gNodeB",
+        "description": "Virtual RU+DU+CU",
+        "id": "1",
+        "status": "Ready",
+        "is_shared": true,
+        "path": "../helm_charts/core/free5gc"
+    },
+    {
+        "domain": "RanTester",
+        "name": "Virtual  UE RanTester + gNodeB",
+        "description": "Complete Virtual RAN RU+DU+CU With UE",
+        "id": "2",
+        "status": "Ready",
+        "is_shared": true,
+        "path": "../helm_charts/core/free5gc"
+    },
+    {
+        "domain": "RAN",
+        "name": "N3IWF",
+        "description": "NF N3IWF",
+        "id": "3s",
+        "status": "Ready",
+        "is_shared": true,
+        "path": "../helm_charts/ran/rantester"
+    }
+]

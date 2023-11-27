@@ -1,0 +1,150 @@
+#
+# Software Name : 5G-all-in-one-helm
+# SPDX-FileCopyrightText: Copyright (c) 2022
+# SPDX-License-Identifier: Apache-2.0
+#
+# This software is distributed under the Apache License 2.0,
+# the text of which is available at todo
+# or see the "LICENSE" file for more details.
+#
+# Author: Abderaouf KHICHANE, Ilhem FAJJARI, Ayoub BOUSSELMI
+# Software description: An open-source project providing Helm charts to deploy 5G components (Core + RAN) on top of Kubernetes
+#
+# Default values for free5gc-chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+global:
+  name: free5gc
+  userPlaneArchitecture: single  # possible values are "single" and "ulcl"
+  nrf:
+    service:
+      name: nrf-nnrf
+      type: ClusterIP
+      port: "8000"
+      nodePort: "30800"
+    nodeSelector:
+      ##kubernetes.io/hostname: worker2
+  sbi:
+    scheme: http
+  amf:
+    service:
+      name: amf-n2
+      port: 38412
+      targetport: 31412
+      protocol: SCTP
+      type: NodePort
+      n2:
+        name: amf-service
+        port: 8805
+        targetport: 8805
+        protocol: UDP
+        type: ClusterIP
+    nodeSelector:
+      #kubernetes.io/hostname: worker1
+  ausf:
+    nodeSelector:
+      #kubernetes.io/hostname: worker1
+  n3iwf:
+    service:
+      n3:
+        name: n3iwf-n3
+        port: 8805
+        targetport: 8805
+        protocol: UDP
+        type: ClusterIP
+      nwu:
+        name: n3iwf-nwu
+        port: 500
+        targetport: 500
+        nodePort: 31500
+        protocol: UDP
+        type: NodePort
+      nastcp:
+        name: n3iwf-nas-tcp
+        port: 32000
+        targetport: 32000
+        nodePort: 32000
+        protocol: TCP
+        type: NodePort
+    nodeSelector:
+      #kubernetes.io/hostname: worker2
+  nssf:
+    nodeSelector:
+      #kubernetes.io/hostname: worker1
+  pcf:
+    nodeSelector:
+      #kubernetes.io/hostname: worker1
+  smf:
+    service:
+      n4:
+        name: smf-n4
+        port: 8805
+        targetport: 8805
+        protocol: UDP
+        type: ClusterIP
+    nodeSelector:
+      #kubernetes.io/hostname: worker1
+  udm:
+    nodeSelector:
+      #kubernetes.io/hostname: worker1
+  udr:
+    nodeSelector:
+      #kubernetes.io/hostname: worker1
+  upf:      
+    service:
+      n4:
+        name: upf-service
+        port: 8805
+        targetport: 8805
+        protocol: UDP
+        type: ClusterIP
+      n3:
+        name: upf-n3
+        port: 8805
+        targetport: 8805
+        protocol: UDP
+        type: ClusterIP
+    nodeSelector:
+      #kubernetes.io/hostname: worker1
+  webui:
+    nodeSelector:
+      #kubernetes.io/hostname: worker1
+
+
+
+# These parameters can be used to enable/disable deployment of subcharts
+deployMongoDB: true              
+deployAMF: true                 
+deployAUSF: true
+deployN3IWF: true 
+deployNRF: true              
+deployNSSF: true                 
+deployPCF: true
+deploySMF: true
+deployUDM: true
+deployUDR: true
+deployUPF: true
+deployWEBUI: true
+
+# Disable the deployment of mongodb as an NRF subchart
+free5gc-nrf:
+  db:
+    enabled: false
+
+# This section can be used to override the default values in the MongoDB chart (remember MongoDB is a subchart of the free5gcControlplane chart since control plane NFs rely on it. 
+mongodb:
+  fullnameOverride: "mongodb"
+  useStatefulSet: true
+  auth:
+    enabled: false
+  persistence:
+    size: 6Gi
+    mountPath: /bitnami/mongodb/data/db/
+  service:
+    name: mongodb
+    type: ClusterIP
+    port: 27017
+    nodePort: "30017"
+  nodeSelector:
+    ##kubernetes.io/hostname: worker2

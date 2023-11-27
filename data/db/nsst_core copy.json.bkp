@@ -1,0 +1,20 @@
+[
+    {
+        "domain": "Core",
+        "name": "5G Core",
+        "description": "Complete 5G Core",
+        "id": "1",
+        "status": "Ready",
+        "is_shared": true,
+        "path": "../helm_charts/core/free5gc"
+    },
+    {
+        "domain": "Core",
+        "name": "UPF",
+        "description": "Single UPF Instance Template",
+        "id": "2",
+        "status": "Ready",
+        "is_shared": true,
+        "path": "../helm_charts/core/free5gc"
+    }
+]
