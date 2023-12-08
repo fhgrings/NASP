@@ -1,0 +1,27 @@
+{
+    "availability": 1,
+    "MMTel": true,
+    "SSC": 1,
+    "DN": 1,
+    "Supported Data Network": "internet",
+    "SSQ": {
+        "Priority Level": 1,
+        "Packet Delay Budget": 0.000120,
+        "Packet Error Rate": 0.00000010,
+        "Maximum Data Burts Volume": 0.0010,
+        "Guaranteed Flow Bit Rate - Downlink": 100000,
+        "Guaranteed Flow Bit Rate - Uplink": 100000,
+        "Max Flow Bit Rate - Downlink": 100000,
+        "Max Flow Bit Rate - Uplink": 100000,
+        "Maximum Packet Loss Rate":100000
+    },
+    "N3GPP Support": true,
+    "Supported device velocity": 10,
+    "Synchronicity": "Between BS and UE",
+    "Accuracy": 0.0000001,
+    "Shared": false,
+    "UE density": 10000,
+    "Maximum number of UEs": 100000,
+    "Maximum number of PDU sessions": 1000,
+    "Exposed": true
+}

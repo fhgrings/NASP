@@ -1,9 +1,12 @@
 import requests
+import logging
 from flask import request, render_template
 from src.services.ControllerKeyService import ControllerKeyService
 from src.services.NssmfCoreService import NssmfCoreService
 from src.services.NssmfRANService import NssmfRANService
-from src.services.NsmfService import NsmfService
+# from src.services.NsmfService import NsmfService
+from src.services.helm_deployments import NsmfService
+
 
 def configure(app):
     """Configure App Routes"""
@@ -14,11 +17,27 @@ def configure(app):
 
 def nasp_ui(app):
     """NASP UI"""
+    @app.route('/webhook', methods=['PUT'])
+    def webhook_put():
+        print(request.get_json())
+        return "ok"
+    @app.route('/webhook', methods=['POST'])
+    def webhook_post():
+        print(request.get_json())
+        return "ok"
     @app.route('/')
     def index():
+        logging.info("NST")
         response = requests.get("http://localhost:5000/nasp/nst", timeout=100)
+        logging.info(response.json())
+        logging.info("RAN")
+
         nsst_ran_list = requests.get("http://localhost:5000/nssmfRAN/nsst", timeout=100)
+        logging.info(nsst_ran_list.json())
+        logging.info("CORE")
+
         nsst_core_list = requests.get("http://localhost:5000/nssmfCore/nsst", timeout=100)
+        logging.info(nsst_core_list.json())
         return render_template("nst.html",use_cases = response.json(), nsst_ran_list = nsst_ran_list.json(), nsst_core_list = nsst_core_list.json(),role=request.args.get('role'))
 
     @app.route('/catalog')
@@ -137,7 +156,7 @@ def nsmf(app):
         except Exception as exception:
             return str(exception), 500
 
-    @app.route(f"{prefix}/allocNsi/", methods=['PUT'])
+    @app.route(f"{prefix}/nsi/", methods=['PUT'])
     def alloc_nsi():
         try:
             Nsmf = NsmfService()
@@ -152,6 +171,15 @@ def nsmf(app):
             return Nsmf.getAllNsi(request)
         except Exception as exception:
             return str(exception), 500
+        
+    @app.route(f"{prefix}/nsi/", methods=['DELETE'])
+    def delete_nsi():
+        try:
+            Nsmf = NsmfService()
+            return Nsmf.delete_nsi(request)
+        except Exception as exception:
+            return str(exception), 500
+
 
 
 def nssmf_core(app):

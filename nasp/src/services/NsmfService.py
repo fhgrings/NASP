@@ -51,20 +51,20 @@ class NsmfService():
             headers = {
             'Content-Type': 'application/json'
             }
-            response = requests.put(url, headers=headers, data=payload, timeout=100)
-            time.sleep(1)
-            url = "http://localhost:5000/nssmfRAN/allocNssi"
-            payload = json.dumps({
-                "S-NSSAI": {
-                    "sst": "1",
-                    "sd": "274401"
-                },
-                "name": "N3IWF"
-            })
-            headers = {
-            'Content-Type': 'application/json'
-            }
-            response = requests.request("PUT", url, headers=headers, data=payload, timeout=100)
+            # response = requests.put(url, headers=headers, data=payload, timeout=100)
+            # time.sleep(1)
+            # url = "http://localhost:5000/nssmfRAN/allocNssi"
+            # payload = json.dumps({
+            #     "S-NSSAI": {
+            #         "sst": "1",
+            #         "sd": "274401"
+            #     },
+            #     "name": "N3IWF"
+            # })
+            # headers = {
+            # 'Content-Type': 'application/json'
+            # }
+            # response = requests.request("PUT", url, headers=headers, data=payload, timeout=100)
 
             return "ok",200
         except Exception as exception:

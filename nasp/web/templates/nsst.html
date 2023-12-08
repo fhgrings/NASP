@@ -58,7 +58,29 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group row">
+                         <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2  p-3  col-form-label">Network Component</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" id="selectorInputInterface" name="inputInterface">
+                                    <option>RU</option>
+                                    <option>DU</option>
+                                    <option>CU</option>
+                                    <option>RanTester</option>
+                                    <option>UEN3GPP</option>
+                                    <option>N3IWF</option>
+                                    <option>AMF</option>
+                                    <option>SMF</option>
+                                    <option>AUSF</option>
+                                    <option>NRF</option>
+                                    <option>NSSF</option>
+                                    <option>PCF</option>
+                                    <option>UDM</option>
+                                    <option>UPF</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-2  p-3  col-form-label">Input interface</label>
                             <div class="col-sm-10">
                                 <select class="form-control" id="selectorInputInterface" name="inputInterface">
@@ -87,7 +109,7 @@
                                     <option>Empty</option>
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-2  p-3 col-form-label">Name</label>
                             <div class="col-sm-10">
@@ -110,7 +132,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="createNSST($('#subslice-template-form')[0])">Create Template</button>
+                    <!-- <button type="button" class="btn btn-primary" onclick="createNSST($('#subslice-template-form')[0])">Create Template</button> -->
+                    <button type="button" class="btn btn-primary" onclick="addAMF_temp($('#subslice-template-form')[0])">Create Template 1</button>
                 </div>
             </div>
         </div>

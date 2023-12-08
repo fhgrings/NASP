@@ -25,6 +25,29 @@ $('#myModal').on('shown.bs.modal', function () {
   $('#myInput').trigger('focus')
 })
 
+function addAMF_temp(form){
+  let formData = new FormData(form);
+  var object = {};
+  formData.forEach((value, key) => object[key] = value);
+  var json = JSON.stringify(object);
+
+  var settings = {
+    "url": "http://165.232.128.22:5000/nssmfCore/nsst",
+    "method": "PUT",
+    "timeout": 0,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "data": json,
+  };
+  console.log(settings)
+
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    window.location.href = 'nsst';
+  });
+}
+
 function createNSST(form) {
   let formData = new FormData(form);
   var object = {};
@@ -68,6 +91,36 @@ function createNST(form) {
       "Content-Type": "application/json"
     },
     "data": json,
+  };
+  console.log(settings)
+
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    window.location.href = '/';
+  });
+}
+
+function createSliceGSMA(form) {
+  let formData = new FormData(form)
+  var object = {};
+  formData.forEach((value, key) => object[key] = value);
+  var json = JSON.stringify(object);
+  var data = JSON.parse(json)
+  data.description = JSON.parse(data.description)
+  console.log(data)
+  console.log(JSON.stringify(data))
+  request("PUT", "http://165.232.128.22:5000/nasp/nsi", JSON.stringify(data))
+}
+
+function request(method,url,data) {
+  var settings = {
+    "url": url,
+    "method": method,
+    "timeout": 0,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "data": data,
   };
   console.log(settings)
 

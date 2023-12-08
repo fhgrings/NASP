@@ -31,18 +31,18 @@ global:
     service:
       ngap:
         enabled: true
-        name: amf2-n2
+        name: amf-n2
         port: 38412
         nodeport: 31412
         protocol: SCTP
         type: NodePort
-      name: amf2-n2
+      name: amf-n2
       port: 38412
       targetport: 31412
       protocol: SCTP
       type: NodePort
       n2:
-        name: amf2-service
+        name: amf-service
         port: 8805
         targetport: 8805
         protocol: UDP
