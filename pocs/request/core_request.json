@@ -1,0 +1,327 @@
+{
+    "NSSAI": "123413",
+    "resources": "custom",
+    "SLA": {
+        "availability": 1,
+        "MMTel": true,
+        "N3GPP Support": true,
+        "SSC": 1,
+        "DN": 1,
+        "Supported Data Network": "internet",
+        "SSQ": {
+            "Priority Level": 1,
+            "Packet Delay Budget": 0.000120,
+            "Packet Error Rate": 0.00000010,
+            "Maximum Data Burts Volume": 0.0010,
+            "Guaranteed Flow Bit Rate - Downlink": 100000,
+            "Guaranteed Flow Bit Rate - Uplink": 100000,
+            "Max Flow Bit Rate - Downlink": 100000,
+            "Max Flow Bit Rate - Uplink": 100000,
+            "Maximum Packet Loss Rate": 100000
+        },
+        "Supported device velocity": 10,
+        "Synchronicity": "Between BS and UE",
+        "Accuracy": 0.0000001,
+        "Shared": false,
+        "UE density": 10000,
+        "Maximum number of UEs": 100000,
+        "Maximum number of PDU sessions": 1000,
+        "exposed": true,
+        "shared": true
+    },
+    "resource_description": {
+        "core": {
+            "nfs": [
+                {
+                    "name": "amf",
+                    "replicas": 2,
+                    "node": [
+                        "new_york"
+                    ],
+                    "config": {
+                        "amfName": "AMF",
+                        "serviceNameList": [
+                            "namf-comm",
+                            "namf-evts",
+                            "namf-mt",
+                            "namf-loc",
+                            "namf-oam"
+                        ],
+                        "servedGuamiList": [
+                            {
+                                "plmnId": {
+                                    "mcc": 208,
+                                    "mnc": 93
+                                },
+                                "amfId": "cafe00"
+                            }
+                        ],
+                        "supportTaiList": [
+                            {
+                                "plmnId": {
+                                    "mcc": 208,
+                                    "mnc": 93
+                                },
+                                "tac": 1
+                            }
+                        ],
+                        "plmnSupportList": [
+                            {
+                                "plmnId": {
+                                    "mcc": 208,
+                                    "mnc": 93
+                                },
+                                "snssaiList": [
+                                    {
+                                        "sst": 1,
+                                        "sd": 4227
+                                    },
+                                    {
+                                        "sst": 1,
+                                        "sd": 112233
+                                    }
+                                ]
+                            }
+                        ],
+                        "supportDnnList": [
+                            "internet"
+                        ],
+                        "security": {
+                            "integrityOrder": [
+                                "NIA2"
+                            ],
+                            "cipheringOrder": [
+                                "NEA0"
+                            ]
+                        },
+                        "networkName": {
+                            "full": "free5GC",
+                            "short": "free"
+                        },
+                        "locality": "area1",
+                        "networkFeatureSupport5GS": {
+                            "enable": true,
+                            "length": 1,
+                            "imsVoPS": 0,
+                            "emc": 0,
+                            "emf": 0,
+                            "iwkN26": 0,
+                            "mpsi": 0,
+                            "emcN3": 0,
+                            "mcsi": 0
+                        },
+                        "t3502Value": 720,
+                        "t3512Value": 3600,
+                        "non3gppDeregistrationTimerValue": 3240,
+                        "t3513": {
+                            "enable": true,
+                            "expireTime": "6s",
+                            "maxRetryTimes": 4
+                        },
+                        "t3522": {
+                            "enable": true,
+                            "expireTime": "6s",
+                            "maxRetryTimes": 4
+                        },
+                        "t3550": {
+                            "enable": true,
+                            "expireTime": "6s",
+                            "maxRetryTimes": 4
+                        },
+                        "t3560": {
+                            "enable": true,
+                            "expireTime": "6s",
+                            "maxRetryTimes": 4
+                        },
+                        "t3565": {
+                            "enable": true,
+                            "expireTime": "6s",
+                            "maxRetryTimes": 4
+                        },
+                        "t3570": {
+                            "enable": true,
+                            "expireTime": "6s",
+                            "maxRetryTimes": 4
+                        },
+                        "logger": null,
+                        "AMF": {
+                            "debugLevel": "info",
+                            "ReportCaller": false
+                        },
+                        "NAS": {
+                            "debugLevel": "info",
+                            "ReportCaller": false
+                        },
+                        "FSM": {
+                            "debugLevel": "info",
+                            "ReportCaller": false
+                        },
+                        "NGAP": {
+                            "debugLevel": "info",
+                            "ReportCaller": false
+                        },
+                        "Aper": {
+                            "debugLevel": "info",
+                            "ReportCaller": false
+                        }
+                    },
+                    "values": {
+                        "global": {
+                            "name": "free5gc",
+                            "userPlaneArchitecture": "single",
+                            "nrf": {
+                                "service": {
+                                    "name": "nrf-nnrf",
+                                    "type": "ClusterIP",
+                                    "port": "8000",
+                                    "nodePort": "30800"
+                                },
+                                "nodeSelector": null
+                            },
+                            "sbi": {
+                                "scheme": "http"
+                            },
+                            "amf": {
+                                "service": {
+                                    "ngap": {
+                                        "enabled": true,
+                                        "name": "amf2-n2",
+                                        "port": 38412,
+                                        "nodeport": 31412,
+                                        "protocol": "SCTP",
+                                        "type": "NodePort"
+                                    },
+                                    "name": "amf2-n2",
+                                    "port": 38412,
+                                    "targetport": 31412,
+                                    "protocol": "SCTP",
+                                    "type": "NodePort",
+                                    "n2": {
+                                        "name": "amf2-service",
+                                        "port": 8805,
+                                        "targetport": 8805,
+                                        "protocol": "UDP",
+                                        "type": "ClusterIP"
+                                    }
+                                },
+                                "nodeSelector": null
+                            },
+                            "ausf": {
+                                "nodeSelector": null
+                            },
+                            "n3iwf": {
+                                "service": {
+                                    "n3": {
+                                        "name": "n3iwf-n3",
+                                        "port": 8805,
+                                        "targetport": 8805,
+                                        "protocol": "UDP",
+                                        "type": "ClusterIP"
+                                    },
+                                    "nwu": {
+                                        "name": "n3iwf-nwu",
+                                        "port": 500,
+                                        "targetport": 500,
+                                        "nodePort": 31500,
+                                        "protocol": "UDP",
+                                        "type": "NodePort"
+                                    },
+                                    "nastcp": {
+                                        "name": "n3iwf-nas-tcp",
+                                        "port": 32000,
+                                        "targetport": 32000,
+                                        "nodePort": 32000,
+                                        "protocol": "TCP",
+                                        "type": "NodePort"
+                                    }
+                                },
+                                "nodeSelector": null
+                            },
+                            "nssf": {
+                                "nodeSelector": null
+                            },
+                            "pcf": {
+                                "nodeSelector": null
+                            },
+                            "smf": {
+                                "service": {
+                                    "n4": {
+                                        "name": "smf-n4",
+                                        "port": 8805,
+                                        "targetport": 8805,
+                                        "protocol": "UDP",
+                                        "type": "ClusterIP"
+                                    }
+                                },
+                                "nodeSelector": null
+                            },
+                            "udm": {
+                                "nodeSelector": null
+                            },
+                            "udr": {
+                                "nodeSelector": null
+                            },
+                            "upf": {
+                                "service": {
+                                    "n4": {
+                                        "name": "upf-service",
+                                        "port": 8805,
+                                        "targetport": 8805,
+                                        "protocol": "UDP",
+                                        "type": "ClusterIP"
+                                    },
+                                    "n3": {
+                                        "name": "upf-n3",
+                                        "port": 8805,
+                                        "targetport": 8805,
+                                        "protocol": "UDP",
+                                        "type": "ClusterIP"
+                                    }
+                                },
+                                "nodeSelector": null
+                            },
+                            "webui": {
+                                "nodeSelector": null
+                            }
+                        },
+                        "deployMongoDB": true,
+                        "deployAMF": true,
+                        "deployAUSF": true,
+                        "deployN3IWF": false,
+                        "deployNRF": true,
+                        "deployNSSF": true,
+                        "deployPCF": true,
+                        "deploySMF": true,
+                        "deployUDM": true,
+                        "deployUDR": true,
+                        "deployUPF": true,
+                        "deployWEBUI": true,
+                        "free5gc-nrf": {
+                            "db": {
+                                "enabled": false
+                            }
+                        },
+                        "mongodb": {
+                            "fullnameOverride": "mongodb",
+                            "useStatefulSet": true,
+                            "auth": {
+                                "enabled": false
+                            },
+                            "persistence": {
+                                "size": "6Gi",
+                                "mountPath": "/bitnami/mongodb/data/db/"
+                            },
+                            "service": {
+                                "name": "mongodb",
+                                "type": "ClusterIP",
+                                "port": 27017,
+                                "nodePort": "30017"
+                            },
+                            "nodeSelector": null
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}
