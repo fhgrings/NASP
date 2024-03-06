@@ -48,9 +48,7 @@ data:
         sst: 1
         sd: "010203"
     amfif:
-      ip: {{ .Values.nameCoreHelm }}-free5gc-amf-amf-0.amf-service
-        #      ip: amf-namf
-        #      ip: "10.100.50.249"
+      ip: {{ .Values.amfAddrs }}
       port: 38412 
     logs:
       level: 4

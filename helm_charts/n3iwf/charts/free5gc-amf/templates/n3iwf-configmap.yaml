@@ -29,7 +29,7 @@ data:
 {{- if $.Values.global.amf.service.ngap.enabled }}
           - {{ $.Values.global.amf.service.ngap.name }}
 {{- else }}
-          - core-free5gc-amf-amf-0.amf-service
+          - amf-free5gc-amf-amf-0.amf-service
 {{- end }}
           Port: {{ $.Values.global.amf.service.ngap.port }}
 

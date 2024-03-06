@@ -75,26 +75,27 @@ class NssmfCoreService():
             except Exception as exception:
                 print(str(exception))
                 nsst_list = []
-            # nsst_list.append({
-            #     "domain": request.json.get("domain"),
-            #     "name": request.json.get("name"),
-            #     "description": request.json.get("description"),
+            new_nsst = {
+                "domain": request.json.get("domain"),
+                "name": request.json.get("name"),
+                "description": request.json.get("description"),
+                "id": "1",
+                "status": "Ready",
+                "is_shared": True,
+                "path": "../helm_charts/core/free5gc"
+            }
+            nsst_list.append(new_nsst)
+            # nsst_list.append({  
+            #     "domain": "Core",
+            #     "name": "AMF",
+            #     "description": "NF AMF",
             #     "id": "1",
             #     "status": "Ready",
             #     "is_shared": True,
             #     "path": "../helm_charts/core/free5gc"
             # })
-            nsst_list.append({  
-                "domain": "Core",
-                "name": "AMF",
-                "description": "NF AMF",
-                "id": "1",
-                "status": "Ready",
-                "is_shared": True,
-                "path": "../helm_charts/core/free5gc"
-            })
             open("../data/db/nsst_core.json", "w", encoding="utf-8").write(json.dumps(nsst_list))
-            return data
+            return new_nsst
         except Exception as exception:
             return f"Bad Request - {exception}", 400
 

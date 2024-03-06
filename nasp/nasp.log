@@ -1,0 +1,4 @@
+ * Ignoring a call to 'app.run()' that would block the current 'flask' CLI command.
+   Only call 'app.run()' in an 'if __name__ == "__main__"' guard.
+ * Serving Flask app 'app.py'
+ * Debug mode: on

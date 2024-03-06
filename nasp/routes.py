@@ -62,6 +62,10 @@ def nasp_ui(app):
         data += response.json()
         return render_template("nsst.html", use_cases = data, role=request.args.get('role'))
 
+
+    @app.route('/dashboard-topology')
+    def topology():
+        return render_template("dashboard-topology.html", nssai = 1, role=request.args.get('role'))
     @app.route('/dashboard-metrics')
     def metrics():
         return render_template("dashboard-metrics.html", nssai = 1, role=request.args.get('role'))
@@ -179,7 +183,14 @@ def nsmf(app):
             return Nsmf.delete_nsi(request)
         except Exception as exception:
             return str(exception), 500
-
+    
+    @app.route(f"{prefix}/clear/", methods=['GET'])
+    def clear_environment():
+        try:
+            Nsmf = NsmfService()
+            return Nsmf.clear_environment()
+        except Exception as exception:
+            return str(exception), 500
 
 
 def nssmf_core(app):

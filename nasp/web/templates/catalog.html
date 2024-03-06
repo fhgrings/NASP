@@ -23,14 +23,52 @@
                 <tbody>
                     {% for case in use_cases %}
                     <tr data-bs-toggle="modal"
-                    data-bs-target="#sec-modal">
+                    data-bs-target="#sec-modal{{case.id}}" data-target='#edit{{ case.id }}'>
                         <td>{{ case.id }}</td>
                         <td>{{ case.name }}</td>
                         <td>{{ case.description }}</td>
                         <td>{{ case.status }}</td>
                         <td >{{ case.is_shared }}</td>
-                        <td><button type="button" class="btn btn-primary btn-lg" onclick="allocNSSI( {{ case.id }} )">Deploy</button></td>
+                        <td><button type="button" class="btn btn-primary">Deploy</button></td>
                     </tr>
+
+                    <!-- SEC Modal -->
+                    <div class="modal fade" id="sec-modal{{case.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-xl" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Add Sec Network Slice Template</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h5 class="modal-title" id="exampleModalLabel{{case.id}}">NST</h5>
+                                            <pre id="teste{{case.id}}">
+                                                <script>
+                                                    var tt = '{{ case.NST|tojson }}'
+                                                    document.querySelector("#teste{{case.id}}").innerHTML = JSON.stringify(JSON.parse(tt), null, 2)
+                                                </script>
+                                            </pre>
+                            
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" onclick="console.log('{{case.NST|tojson}}')">Deploy</button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
                     {% endfor %}
                 </tbody>
             </table>

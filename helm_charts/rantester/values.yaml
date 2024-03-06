@@ -19,6 +19,7 @@ projectName: rantester
 name: rantester
 #Name of the helm
 nameCoreHelm: amf 
+amfAddrs: amf-free5gc-amf-amf-0.amf-service
 
 image:
   repository: baleeiro17/my5grantester

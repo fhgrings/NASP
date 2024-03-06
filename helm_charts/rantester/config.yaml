@@ -1,0 +1,27 @@
+---
+  plmnlist:
+    mcc: "208"
+    mnc: "93"
+    tac: "000001"
+    gnbid: "000002"
+  slicesupportlist:
+    sst: "01"
+    sd: "000001"
+ue:
+  msin: "0000000003"
+  key: "8baf473f2f8fd09487cccbd7097c6862"
+  opc: "8e27b6af0e692e750f32667a3b14605d"
+  amf: "8000"
+  sqn: "000000000024"
+  dnn: "internet"
+  hplmn:
+    mcc: "208"
+    mnc: "93"
+  snssai:
+    sst: 1
+    sd: "010203"
+amfif:
+  ip: amf-free5gc-amf-amf-0.amf-service
+  port: 38412 
+logs:
+  level: 4

@@ -22,24 +22,16 @@
                 <tbody>
                     {% for case in use_cases %}
                     <tr data-bs-toggle="modal"
-                    data-bs-target="#sec-modal">
+                    data-bs-target="#sec-modal{{case.id}}" data-target='#edit{{ case.id }}'>
                         <td>{{ case.id }}</td>
                         <td>{{ case.name }}</td>
                         <td>{{ case.description }}</td>
                         <td>{{ case.status }}</td>
                         <td >{{ case.is_shared }}</td>
                     </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <!-- <button type="button" class="btn btn-primary btn-lg" onclick="allocNSSI( {{ use_cases }} )">Deploy Slice</button> -->
-            <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal"
-                data-bs-target="#exampleModal">Add Slice Template</button>
-        </div>
-    </div>
-</div>
 <!-- SEC Modal -->
-<div class="modal fade" id="sec-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+
+<div class="modal fade" id="sec-modal{{case.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 aria-hidden="true">
 <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
@@ -52,116 +44,13 @@ aria-hidden="true">
         <div class="modal-body">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-4">
-                        <h5 class="modal-title" id="exampleModalLabel">NST</h5>
-                        <pre>
-global:
-    projectName: free5gc
-    amf:
-    n2if:  # NGAP
-        ipAddress: 10.100.50.249
-    service:
-        ngap:
-        enabled: false
-        name: amf-n2
-        port: 38412
-        nodeport: 31412
-        protocol: SCTP
-        type: NodePort
-    n2network:
-    name: n2network
-    masterIf: eth0
-    subnetIP: 10.100.50.248
-    cidr: 29
-    gatewayIP: 10.100.50.254
-    excludeIP: 10.100.50.254
-    n3network:
-    name: n3network
-    masterIf: eth0
-    subnetIP: 10.100.50.232
-    cidr: 29
-    gatewayIP: 10.100.50.238
-    excludeIP: 10.100.50.238
-                        </pre>
-        
-                    </div>
-                    <div class="col-4">
-                        <h5 class="modal-title" id="exampleModalLabel">NSST RN</h5>
-                        <pre>
-configuration:
-    n3iwfName: N3IWF
-    ngapIpList:
-        - 127.0.0.18
-    sbi:
-        scheme: http
-        registerEPv4: 127.0.0.18
-        bindingIPv4: 127.0.0.18
-        n3:
-        port: 8805
-        targetport: 8805
-        protocol: UDP
-        nwu:
-        port: 500
-        targetport: 500
-        nodePort: 31500
-        protocol: UDP
-        nastcp:
-        port: 32000
-        targetport: 32000
-        nodePort: 32000
-        protocol: TCP
-    supportDnnList:
-        - internet
-    nrfUri: http://127.0.0.18:8080
-    security:
-        integrityOrder:
-        - NIA2
-        cipheringOrder:
-        - NEA0
-    networkName:
-        full: free5gc
-        short: free
-    locality: area1
-    
-    helmCharts:
-        - n3iwf.yml
-                        </pre>
-        
-                    </div>
-                    <div class="col-4">
-                        <h5 class="modal-title" id="exampleModalLabel">NSST CN</h5>
-                        <pre>
-configuration:
-    amfName: amf
-    ngapIpList:
-        - 127.0.0.18
-    sbi:
-        scheme: http
-        registerEPv4: 127.0.0.18
-        bindingIPv4: 127.0.0.18
-        n1:
-        port: 38412
-        targetport: 31412
-        protocol: SCTP
-        n2:
-        port: 8805
-        targetport: 8805
-        protocol: UDP
-    supportDnnList:
-        - internet
-    nrfUri: http://127.0.0.18:8080
-    security:
-        integrityOrder:
-        - NIA2
-        cipheringOrder:
-        - NEA0
-    networkName:
-        full: free5gc
-        short: free
-    locality: area1
-
-    helmCharts:
-        - sba_core.yml
+                    <div class="col-12">
+                        <h5 class="modal-title" id="exampleModalLabel{{case.id}}">NST</h5>
+                        <pre id="teste{{case.id}}">
+                            <script>
+                                var tt = '{{ case.NST|tojson }}'
+                                document.querySelector("#teste{{case.id}}").innerHTML = JSON.stringify(JSON.parse(tt), null, 2)
+                            </script>
                         </pre>
         
                     </div>
@@ -176,6 +65,16 @@ configuration:
         </div>
     </div>
 </div>
+</div>
+
+                    {% endfor %}
+                </tbody>
+            </table>
+            <!-- <button type="button" class="btn btn-primary btn-lg" onclick="allocNSSI( {{ use_cases }} )">Deploy Slice</button> -->
+            <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">Add Slice Template</button>
+        </div>
+    </div>
 </div>
 
 <!-- Modal -->
