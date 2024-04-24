@@ -30,7 +30,7 @@ global:
   amf:
     service:
       ngap:
-        enabled: true
+        enabled: false
         name: amf-n2
         port: 38412
         nodeport: 31412
