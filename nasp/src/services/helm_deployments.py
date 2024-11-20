@@ -204,12 +204,15 @@ class NsmfService():
             raise Exception(exception.output.decode('utf-8'))
         
     def create_helm_tmp(self, path):
-        cmd = f'cp -r {path} /tmp/helm-nasp-temp'
+        # Ensure the target directory exists
+        if not os.path.exists(BASE_HELM_TMP):
+            os.makedirs(BASE_HELM_TMP)
+        
+        cmd = f'cp -r {path} {BASE_HELM_TMP}'
         try:
             result = subprocess.check_output(cmd, shell=True, stderr=subprocess.STDOUT)
             return result.decode('utf-8')
         except Exception as exception:
-
             raise Exception(exception.output.decode('utf-8'))
         
     def update_slice_config(self, base_path, req):
