@@ -79,7 +79,7 @@ class NsmfService():
         try:
             logging.info("Start Deploy CN")
             namespace = "ns-"+nssai
-            self.create_delay(210)
+            #self.create_delay(210)
             self.create_ns(namespace)
             self.create_helm_tmp(BASE_HELM)
             NFs, amf_ip = self.update_slice_config(BASE_HELM_TMP, req)
@@ -167,8 +167,8 @@ class NsmfService():
         return
 
     def delete_delay(self):
-        cmd_list = [f'ssh 157.245.94.195 "tc qdisc del dev eth1 parent 1:1"',
-                    f'ssh 165.227.202.171 "tc qdisc del dev eth1 parent 1:1"']
+        cmd_list = [f'ssh 127.0.0.1 "tc qdisc del dev eth1 parent 1:1"',
+                    f'ssh 127.0.0.1 "tc qdisc del dev eth1 parent 1:1"']
         for cmd in cmd_list:
             try:
                 result = subprocess.check_output(cmd, shell=True, stderr=subprocess.STDOUT)
@@ -186,7 +186,7 @@ class NsmfService():
             requests.delete(url+"/org.onosproject.cli/"+intent["id"], headers=headers)
 
     def create_delay(self, delay):
-        cmd_list = [f'ssh 157.245.94.195 "tc qdisc add dev eth1 root handle 1: prio;tc filter add dev eth1 parent 1:0 protocol ip prio 1 u32 match ip dst 10.116.0.3 flowid 2:1;tc qdisc add dev eth1 parent 1:1 handle 2: netem delay {delay}ms"',
+        cmd_list = [f'ssh 127.0.0.1 "tc qdisc add dev eth1 root handle 1: prio;tc filter add dev eth1 parent 1:0 protocol ip prio 1 u32 match ip dst 10.116.0.3 flowid 2:1;tc qdisc add dev eth1 parent 1:1 handle 2: netem delay {delay}ms"',
                     f'ssh 165.227.202.171 "tc qdisc add dev eth1 root handle 1: prio;tc filter add dev eth1 parent 1:0 protocol ip prio 1 u32 match ip dst 10.116.0.2 flowid 2:1;tc qdisc add dev eth1 parent 1:1 handle 2: netem delay {delay-20}ms"']
         for cmd in cmd_list:
             try:

@@ -92,7 +92,6 @@ spec:
             scheme: {{ $.Values.global.sbi.scheme | quote | upper }}
             port: {{ $.Values.global.nrf.service.port }}
       nodeSelector:
-        kubernetes.io/hostname: node1
       {{- if $.Values.global.nrf.nodeSelector }}
       nodeSelector: {{- $.Values.global.nrf.nodeSelector | toYaml | nindent 8 }}
       {{- end }}
