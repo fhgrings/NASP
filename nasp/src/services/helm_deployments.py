@@ -24,7 +24,8 @@ class NsmfService():
             logging.info(f"S_NSSAI Selected = {S_NSSAI}")
             data = {"name": req.json["name"], "description": req.json["description"], "S_NSSAI": S_NSSAI}
             logging.info(data)
-            self.add_to_db(data, "nsi")
+            # Added url to post data to rAppNASP
+            self.add_to_db(data, "nsi", "http://localhost")
             self.deploy_ns(req,S_NSSAI)
             return f"Alloc Completed with success", 200
         except Exception as exception:
@@ -56,19 +57,25 @@ class NsmfService():
         except Exception as exception:
             return f"Bad Request - {exception}", 400
 
-    def add_to_db(self, data, table):
+    def post_data(self, data, url):
         try:
-            db_data = open(f"../data/db/{table}.json", encoding="utf-8")
-            try:
-                nsi_list = json.load(db_data)
-            except Exception as exception:
-                print(str(exception))
-                nsi_list = []
+            response = requests.post(url, json=data)
+            response.raise_for_status()
+        except Exception as exception:
+            print(str(exception))
+
+    def add_to_db(self, data, table, url):
+        try:
+            with open(f"../data/db/{table}.json", encoding="utf-8") as db_data:
+                try:
+                    nsi_list = json.load(db_data)
+                except Exception as exception:
+                    print(str(exception))
+                    nsi_list = []
             nsi_list.append(data)
-            f = open("../data/db/nsi.json", "w", encoding="utf-8")
-            f.write(json.dumps(nsi_list))
-            f.close()
-            return
+            with open(f"../data/db/{table}.json", "w", encoding="utf-8") as f:
+                json.dump(nsi_list, f)
+            self.post_data(data, url)
         except Exception as exception:
             print(str(exception))
 
@@ -98,7 +105,7 @@ class NsmfService():
             
             logging.info("Deploying Transport")
             time.sleep(0.5)
-            self.deploy_transport_network(low_latency=False)
+            #self.deploy_transport_network(low_latency=False)
 
             logging.info("Deploy Completed")
         except Exception as e:
