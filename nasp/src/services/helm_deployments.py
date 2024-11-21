@@ -25,7 +25,7 @@ class NsmfService():
             data = {"name": req.json["name"], "description": req.json["description"], "S_NSSAI": S_NSSAI}
             logging.info(data)
             # Added url to post data to rAppNASP
-            self.add_to_db(data, "nsi", "http://localhost")
+            self.add_to_db(data, "nsi", "http://10.109.114.164/create_slice_policy")
             self.deploy_ns(req,S_NSSAI)
             return f"Alloc Completed with success", 200
         except Exception as exception:
