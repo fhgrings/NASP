@@ -25,6 +25,7 @@ jobs:
       - name: Install dependencies with Poetry
         run: |
           pip install poetry
+          cd nasp
           poetry install
 
       # Step 4: Run tests with pytest
