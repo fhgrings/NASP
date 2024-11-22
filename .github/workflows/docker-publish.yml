@@ -9,6 +9,8 @@ on:
 jobs:
   test-build-publish:
     runs-on: ubuntu-latest
+    permissions:
+      checks: write
 
     steps:
       # Step 1: Check out the repository
@@ -30,6 +32,7 @@ jobs:
 
       # Step 4: Run tests with pytest
       - name: Run tests
+        working-directory: ./nasp
         run: |
           poetry run pytest --maxfail=1 --disable-warnings --cov=src tests/
       
