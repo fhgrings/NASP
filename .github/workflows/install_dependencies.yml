@@ -1,8 +1,6 @@
 name: Install dependencies
 
 on:
-  push:
-    branches: [ "main" ]
   workflow_call:  # This makes the workflow reusable
     inputs:
       python-version:
