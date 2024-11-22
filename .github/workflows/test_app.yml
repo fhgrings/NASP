@@ -19,6 +19,9 @@ jobs:
     uses: ./.github/workflows/install_dependencies.yml  # Reference the reusable workflow
     with:
       python-version: "3.10"  # Optional: Override inputs defined in the reusable workflow
+    permissions:
+      checks: write
+
   
   test-app:
     needs: install-dependencies  # Run only if the install-dependencies job succeeds

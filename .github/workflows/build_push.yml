@@ -13,6 +13,8 @@ jobs:
     uses: ./.github/workflows/test_app.yml  # Reference the reusable workflow
     with:
       python-version: "3.10"  # Optional: Override inputs defined in the reusable workflow
+    permissions:
+      checks: write
 
   build-publish:
     needs: test-app  # Run only if the install-dependencies job succeeds
