@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nasp"
-version = "0.1.0"
+version = "1.0.0"
 description = ""
 authors = ["Felipe Grings <felipehgrings@hotmail.com>"]
 
@@ -10,6 +10,8 @@ Flask = "^2.2.3"
 pymongo = "^4.3.3"
 kubernetes = "^26.1.0"
 python-dotenv = "^1.0.0"
+pyyaml = "^6.0.2"
+pytest = "^8.3.3"
 
 [tool.poetry.dev-dependencies]
 
