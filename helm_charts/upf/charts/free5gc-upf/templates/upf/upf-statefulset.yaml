@@ -63,8 +63,6 @@ spec:
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       nodeSelector:
-        kubernetes.io/hostname: node2
-
       {{- if $.Values.global.upf.nodeSelector }}
       nodeSelector: {{- $.Values.global.upf.nodeSelector | toYaml | nindent 8 }}
       {{- end }}

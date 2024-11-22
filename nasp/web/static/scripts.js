@@ -35,7 +35,7 @@ function addAMF_temp(form){
   var json = JSON.stringify(object);
 
   var settings = {
-    "url": "http://165.232.128.22:5000/nssmfCore/nsst",
+    "url": "http://127.0.0.1:5000/nssmfCore/nsst",
     "method": "PUT",
     "timeout": 0,
     "headers": {
@@ -113,7 +113,7 @@ function createSliceGSMA(form) {
   data.description = JSON.parse(data.description)
   console.log(data)
   console.log(JSON.stringify(data))
-  request("PUT", "http://165.232.128.22:5000/nasp/nsi", JSON.stringify(data))
+  request("PUT", "http://127.0.0.1:5000/nasp/nsi", JSON.stringify(data))
 }
 
 function request(method,url,data) {

@@ -80,8 +80,6 @@ spec:
         resources:
             {{- toYaml .resources | nindent 12 }}
       nodeSelector:
-        kubernetes.io/hostname: node1
-
 {{- if $.Values.global.amf.nodeSelector }}
       nodeSelector: {{- $.Values.global.amf.nodeSelector | toYaml | nindent 8 }}
 {{- end }}

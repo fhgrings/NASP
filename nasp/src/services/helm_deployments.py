@@ -24,7 +24,8 @@ class NsmfService():
             logging.info(f"S_NSSAI Selected = {S_NSSAI}")
             data = {"name": req.json["name"], "description": req.json["description"], "S_NSSAI": S_NSSAI}
             logging.info(data)
-            self.add_to_db(data, "nsi")
+            # Added url to post data to rAppNASP
+            self.add_to_db(data, "nsi", "http://10.109.114.164/create_slice_policy")
             self.deploy_ns(req,S_NSSAI)
             return f"Alloc Completed with success", 200
         except Exception as exception:
@@ -56,19 +57,25 @@ class NsmfService():
         except Exception as exception:
             return f"Bad Request - {exception}", 400
 
-    def add_to_db(self, data, table):
+    def post_data(self, data, url):
         try:
-            db_data = open(f"../data/db/{table}.json", encoding="utf-8")
-            try:
-                nsi_list = json.load(db_data)
-            except Exception as exception:
-                print(str(exception))
-                nsi_list = []
+            response = requests.post(url, json=data)
+            response.raise_for_status()
+        except Exception as exception:
+            print(str(exception))
+
+    def add_to_db(self, data, table, url):
+        try:
+            with open(f"../data/db/{table}.json", encoding="utf-8") as db_data:
+                try:
+                    nsi_list = json.load(db_data)
+                except Exception as exception:
+                    print(str(exception))
+                    nsi_list = []
             nsi_list.append(data)
-            f = open("../data/db/nsi.json", "w", encoding="utf-8")
-            f.write(json.dumps(nsi_list))
-            f.close()
-            return
+            with open(f"../data/db/{table}.json", "w", encoding="utf-8") as f:
+                json.dump(nsi_list, f)
+            self.post_data(data, url)
         except Exception as exception:
             print(str(exception))
 
@@ -79,7 +86,7 @@ class NsmfService():
         try:
             logging.info("Start Deploy CN")
             namespace = "ns-"+nssai
-            self.create_delay(210)
+            #self.create_delay(210)
             self.create_ns(namespace)
             self.create_helm_tmp(BASE_HELM)
             NFs, amf_ip = self.update_slice_config(BASE_HELM_TMP, req)
@@ -98,7 +105,7 @@ class NsmfService():
             
             logging.info("Deploying Transport")
             time.sleep(0.5)
-            self.deploy_transport_network(low_latency=False)
+            #self.deploy_transport_network(low_latency=False)
 
             logging.info("Deploy Completed")
         except Exception as e:
@@ -167,8 +174,8 @@ class NsmfService():
         return
 
     def delete_delay(self):
-        cmd_list = [f'ssh 157.245.94.195 "tc qdisc del dev eth1 parent 1:1"',
-                    f'ssh 165.227.202.171 "tc qdisc del dev eth1 parent 1:1"']
+        cmd_list = [f'ssh 127.0.0.1 "tc qdisc del dev eth1 parent 1:1"',
+                    f'ssh 127.0.0.1 "tc qdisc del dev eth1 parent 1:1"']
         for cmd in cmd_list:
             try:
                 result = subprocess.check_output(cmd, shell=True, stderr=subprocess.STDOUT)
@@ -186,7 +193,7 @@ class NsmfService():
             requests.delete(url+"/org.onosproject.cli/"+intent["id"], headers=headers)
 
     def create_delay(self, delay):
-        cmd_list = [f'ssh 157.245.94.195 "tc qdisc add dev eth1 root handle 1: prio;tc filter add dev eth1 parent 1:0 protocol ip prio 1 u32 match ip dst 10.116.0.3 flowid 2:1;tc qdisc add dev eth1 parent 1:1 handle 2: netem delay {delay}ms"',
+        cmd_list = [f'ssh 127.0.0.1 "tc qdisc add dev eth1 root handle 1: prio;tc filter add dev eth1 parent 1:0 protocol ip prio 1 u32 match ip dst 10.116.0.3 flowid 2:1;tc qdisc add dev eth1 parent 1:1 handle 2: netem delay {delay}ms"',
                     f'ssh 165.227.202.171 "tc qdisc add dev eth1 root handle 1: prio;tc filter add dev eth1 parent 1:0 protocol ip prio 1 u32 match ip dst 10.116.0.2 flowid 2:1;tc qdisc add dev eth1 parent 1:1 handle 2: netem delay {delay-20}ms"']
         for cmd in cmd_list:
             try:
@@ -204,12 +211,15 @@ class NsmfService():
             raise Exception(exception.output.decode('utf-8'))
         
     def create_helm_tmp(self, path):
-        cmd = f'cp -r {path} /tmp/helm-nasp-temp'
+        # Ensure the target directory exists
+        if not os.path.exists(BASE_HELM_TMP):
+            os.makedirs(BASE_HELM_TMP)
+        
+        cmd = f'cp -r {path} {BASE_HELM_TMP}'
         try:
             result = subprocess.check_output(cmd, shell=True, stderr=subprocess.STDOUT)
             return result.decode('utf-8')
         except Exception as exception:
-
             raise Exception(exception.output.decode('utf-8'))
         
     def update_slice_config(self, base_path, req):
