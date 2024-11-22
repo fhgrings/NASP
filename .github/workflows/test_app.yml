@@ -24,7 +24,7 @@ jobs:
       python-version: "3.10"  # Optional: Override inputs defined in the reusable workflow
     permissions:
       checks: write
-
+      contents: read
   
   test-app:
     needs: install-dependencies  # Run only if the install-dependencies job succeeds
