@@ -24,9 +24,8 @@ class NsmfService():
             logging.info(f"S_NSSAI Selected = {S_NSSAI}")
             data = {"name": req.json["name"], "description": req.json["description"], "S_NSSAI": S_NSSAI}
             logging.info(data)
-            # Added url to post data to rAppNASP
-            self.add_to_db(data, "nsi", "http://10.109.114.164/create_slice_policy")
-            self.deploy_ns(req,S_NSSAI)
+            self.add_to_db(data, "nsi")
+            self.deploy_ns(req, data, S_NSSAI)
             return f"Alloc Completed with success", 200
         except Exception as exception:
             return f"Bad Request - {str(exception)}", 400
@@ -64,7 +63,7 @@ class NsmfService():
         except Exception as exception:
             print(str(exception))
 
-    def add_to_db(self, data, table, url):
+    def add_to_db(self, data, table):
         try:
             with open(f"../data/db/{table}.json", encoding="utf-8") as db_data:
                 try:
@@ -75,11 +74,10 @@ class NsmfService():
             nsi_list.append(data)
             with open(f"../data/db/{table}.json", "w", encoding="utf-8") as f:
                 json.dump(nsi_list, f)
-            self.post_data(data, url)
         except Exception as exception:
             print(str(exception))
 
-    def deploy_ns(self, req, nssai="default"):
+    def deploy_ns(self, req, data, nssai="default"):
         """
         Create NS => Cp to tmp => Update configs => Deploy
         """
@@ -97,6 +95,7 @@ class NsmfService():
             if not req.json["description"]["N3GPP Support"]:
                 logging.info("Deploying RAN")
                 RNFs = ["rantester"]
+                self.post_data(data, "http://10.109.114.164/create_slice_policy")
                 for Rnf in RNFs:
                     logging.info(self.install_helm(Rnf, BASE_HELM_TMP+Rnf, namespace))
 
