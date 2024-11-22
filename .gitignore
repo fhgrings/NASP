@@ -1,1 +1,3 @@
 *.pyc
+response.txt
+config/kubeconfig
