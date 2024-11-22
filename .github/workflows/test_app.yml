@@ -9,6 +9,9 @@ on:
         default: "3.11"  
   pull_request:
     branches: [ "main" ]
+  # push:
+  #   branches: [ "main" ]
+    
   workflow_dispatch:  # Allow manual triggers
 
 permissions:
