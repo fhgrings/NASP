@@ -15,7 +15,7 @@ jobs:
       python-version: "3.10"  # Optional: Override inputs defined in the reusable workflow
 
   build-publish:
-    needs: test-app-dependencies  # Run only if the install-dependencies job succeeds
+    needs: test-app  # Run only if the install-dependencies job succeeds
     runs-on: ubuntu-latest
     permissions:
       checks: write
