@@ -23,6 +23,7 @@ jobs:
 
       # Step 3: Install dependencies
       - name: Install dependencies with Poetry
+        working-directory: ./nasp
         run: |
           pip install poetry
           poetry install --no-root
