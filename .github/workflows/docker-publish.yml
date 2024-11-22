@@ -1,0 +1,50 @@
+name: Build and Publish Docker Image
+
+on:
+  push:
+    branches:
+      - main  # Trigger pipeline on pushes to the main branch
+  workflow_dispatch:  # Allow manual triggers
+
+jobs:
+  test-build-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      # Step 3: Install dependencies
+      - name: Install dependencies with Poetry
+        run: |
+          pip install poetry
+          poetry install
+
+      # Step 4: Run tests with pytest
+      - name: Run tests
+        run: |
+          poetry run pytest --maxfail=1 --disable-warnings --cov=src tests/
+      
+      # Step 5: Log in to Docker Hub or another registry
+      # - name: Log in to Docker Registry
+      #   uses: docker/login-action@v2
+      #   with:
+      #     username: ${{ secrets.DOCKER_USERNAME }}
+      #     password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # # Step 6: Build the Docker image
+      # - name: Build Docker image
+      #   run: |
+      #     docker build -t fhgrings/nasp:latest .
+
+      # # Step 7: Push the Docker image to the registry
+      # - name: Push Docker image
+      #   run: |
+      #     docker push fhgrings/nasp:latest
