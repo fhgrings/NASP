@@ -6,6 +6,9 @@ on:
       - main  # Trigger pipeline on pushes to the main branch
   workflow_dispatch:  # Allow manual triggers
 
+permissions:
+  contents: read
+
 jobs:
   test-build-publish:
     runs-on: ubuntu-latest
