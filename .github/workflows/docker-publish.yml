@@ -34,7 +34,7 @@ jobs:
       - name: Run tests
         working-directory: ./nasp
         run: |
-          poetry run pytest --maxfail=1 --disable-warnings --cov=src tests/
+          poetry run poetry run pytest --maxfail=1  -vv
       
       # Step 5: Log in to Docker Hub or another registry
       # - name: Log in to Docker Registry
