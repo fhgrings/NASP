@@ -1,16 +1,22 @@
-name: Build and Publish Docker Image
+name: Test NASP Application
 
 on:
-  push:
-    branches:
-      - main  # Trigger pipeline on pushes to the main branch
+  workflow_call:  # This makes the workflow reusable
+  pull_request:
+    branches: [ "main" ]
   workflow_dispatch:  # Allow manual triggers
 
 permissions:
   contents: read
 
 jobs:
-  test-build-publish:
+  install-dependencies:
+    uses: ./.github/workflows/install_dependencies.yml  # Reference the reusable workflow
+    with:
+      python-version: "3.10"  # Optional: Override inputs defined in the reusable workflow
+  
+  test-app:
+    needs: install-dependencies  # Run only if the install-dependencies job succeeds
     runs-on: ubuntu-latest
     permissions:
       checks: write
