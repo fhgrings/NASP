@@ -1,5 +1,3 @@
-> :memo: NOTE 1: This Master is being prepared to be published at *IEEE* Wireless Communications and *Networking Conference* (WCNC)
->
 > Main information results and proposed solution are not described here until the submission in the Conference
 
 # NASP - NETWORK SLICE AS A SERVICE PLATFORM FOR NEW-GENERATION NETWORKS BEYOND 5G
