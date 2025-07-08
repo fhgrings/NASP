@@ -6,7 +6,7 @@ An Applied Computing  master's dissertation repository developed by Felipe Gring
 
 Link to Master's defense: https://youtu.be/m2SN5c9PoEo
 
-Master's thesis: (Not available yet)
+Master's thesis: https://track.authorhub.elsevier.com/?uuid=57423768-0494-4c9f-901f-7a68e21c897f
 
 
 
