@@ -6,6 +6,8 @@ An Applied Computing  master's dissertation repository developed by Felipe Gring
 
 Link to Master's defense: https://youtu.be/m2SN5c9PoEo
 
+NASP Demo: https://youtu.be/HqKeamq2XcM?si=P9CoZbDYnN28ek5Y
+
 Master's thesis: https://track.authorhub.elsevier.com/?uuid=57423768-0494-4c9f-901f-7a68e21c897f
 
 
